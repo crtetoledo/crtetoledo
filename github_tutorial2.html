@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial: Do Seu PC para o GitHub com Token</title>
+    <style>
+        /* Estilos Gerais */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f6f8fa;
+            color: #24292e;
+        }
+
+        /* Container Principal */
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e1e4e8;
+        }
+
+        /* Títulos */
+        h1, h2, h3 {
+            border-bottom: 2px solid #eaecef;
+            padding-bottom: 10px;
+            margin-top: 24px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 2.2em;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.8em;
+        }
+
+        h3 {
+            font-size: 1.4em;
+            border-bottom: 1px solid #eaecef;
+        }
+
+        /* Parágrafos e Listas */
+        p, li {
+            font-size: 16px;
+            color: #333;
+        }
+
+        ol {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /* Blocos de Código */
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 0.9em;
+            background-color: #f1f3f5;
+            padding: 3px 6px;
+            border-radius: 5px;
+            border: 1px solid #e1e4e8;
+        }
+
+        pre {
+            background-color: #24292e;
+            color: #f6f8fa;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #444;
+        }
+        
+        pre code {
+            background-color: transparent;
+            border: none;
+            padding: 0;
+        }
+
+        /* Links e Ênfase */
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        strong {
+            font-weight: 600;
+        }
+
+        /* Imagens */
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #e1e4e8;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Avisos e Notas */
+        .note {
+            background-color: #fffbdd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Tutorial: Do Seu PC para o GitHub com Token de Acesso</h1>
+        <p>Um guia completo para enviar seus arquivos locais para um repositório no GitHub, usando o método de autenticação mais seguro e atual: o <strong>Personal Access Token (PAT)</strong>.</p>
+        
+        <h2>Pré-requisitos</h2>
+        <ol>
+            <li><a href="https://git-scm.com/downloads" target="_blank">Git instalado</a> no seu computador.</li>
+            <li>Uma conta criada no <a href="https://github.com/" target="_blank">GitHub</a>.</li>
+        </ol>
+
+        <hr>
+
+        <h2>Etapa 1: Gerar seu Personal Access Token (PAT)</h2>
+        <p>Este token será sua senha para usar no terminal. Você só precisa fazer isso uma vez (ou sempre que o token expirar).</p>
+        
+        <ol>
+            <li><strong>Acesse as Configurações:</strong> Faça login no GitHub, clique na sua foto de perfil no canto superior direito e vá para <strong>Settings</strong>.</li>
+            <li><strong>Vá para as Configurações de Desenvolvedor:</strong> No menu esquerdo, role até o final e clique em <strong>Developer settings</strong>.</li>
+            <li><strong>Abra a Seção de Tokens:</strong> Clique em <strong>Personal access tokens</strong> e depois em <strong>Tokens (classic)</strong>.</li>
+            <li><strong>Gere um Novo Token:</strong> Clique no botão <strong>Generate new token</strong> e depois em <strong>Generate new token (classic)</strong>.</li>
+            <li>
+                <strong>Configure o Token:</strong>
+                <ul>
+                    <li><strong>Note (Nome):</strong> Dê um nome descritivo. Ex: <code>Token para meu Notebook</code>.</li>
+                    <li><strong>Expiration (Expiração):</strong> Defina um prazo de validade (ex: 90 dias).</li>
+                    <li><strong>Select scopes (Permissões):</strong> Marque a caixa de seleção <strong><code>repo</code></strong>. Isso dará ao token todas as permissões necessárias.</li>
+                </ul>
+                <p>Aqui está uma ilustração de como marcar a opção `repo`:</p>
+                <img src="https://i.imgur.com/k6lP0yS.png" alt="Tela de configuração de escopos do token no GitHub, com a opção 'repo' destacada.">
+            </li>
+            <li>
+                <strong>Crie e Copie o Token:</strong> Role até o final e clique em <strong>Generate token</strong>.
+                <div class="note">
+                    <strong>IMPORTANTE:</strong> Copie o token (<code>ghp_...</code>) imediatamente e guarde-o em um lugar seguro. <strong>Você nunca mais o verá novamente!</strong>
+                </div>
+            </li>
+        </ol>
+        
+        <hr>
+
+        <h2>Etapa 2: Criar o Repositório no GitHub</h2>
+        <p>Este será o "lar" do seu projeto na nuvem.</p>
+        
+        <ol>
+            <li><strong>Novo Repositório:</strong> No canto superior direito do GitHub, clique no ícone <strong>+</strong> e selecione <strong>New repository</strong>.
+            <img src="https://i.imgur.com/bB4f2Vf.png" alt="Menu do GitHub mostrando a opção 'New repository'.">
+            </li>
+            <li><strong>Preencha os Detalhes:</strong> Dê um nome, escolha entre Público/Privado e <strong>deixe todas as caixas de inicialização desmarcadas</strong>.</li>
+            <li><strong>Crie o Repositório:</strong> Clique no botão verde <strong>Create repository</strong>.</li>
+            <li><strong>Guarde a URL:</strong> Na página seguinte, copie a URL do seu repositório. Ela será no formato <code>https://github.com/seu-usuario/nome-do-repo.git</code>.
+            <img src="https://i.imgur.com/tH0E8jH.png" alt="Página de configuração rápida de um novo repositório no GitHub, com a URL HTTPS destacada.">
+            </li>
+        </ol>
+
+        <hr>
+
+        <h2>Etapa 3: Preparar e Enviar seu Projeto Local</h2>
+        <p>Agora, vamos ao seu computador. Abra o terminal (ou Git Bash) <strong>dentro da pasta do seu projeto</strong>.</p>
+        
+        <ol>
+            <li><strong>Inicie o Git:</strong> Se o projeto nunca usou Git, execute:
+                <pre><code>git init</code></pre>
+            </li>
+            <li><strong>Adicione os Arquivos:</strong> Para preparar todos os arquivos para serem salvos:
+                <pre><code>git add .</code></pre>
+            </li>
+            <li><strong>Faça o "Commit":</strong> Salve uma "fotografia" do estado atual do seu projeto:
+                <pre><code>git commit -m "Commit inicial do projeto"</code></pre>
+            </li>
+            <li><strong>Conecte seu Computador ao GitHub:</strong> (Use a URL que você copiou na Etapa 2)
+                <pre><code>git remote add origin https://github.com/seu-usuario/nome-do-repo.git</code></pre>
+            </li>
+            <li><strong>Envie os Arquivos (O Momento da Autenticação):</strong>
+                <pre><code>git push -u origin master</code></pre>
+            </li>
+            <li>
+                <strong>Faça o Login no Terminal:</strong>
+                <ul>
+                    <li>Quando pedir <code>Username</code>, digite seu nome de usuário do GitHub e pressione Enter.</li>
+                    <li>Quando pedir <code>Password</code>, <strong>cole o Personal Access Token (PAT)</strong> que você gerou na Etapa 1.</li>
+                </ul>
+                <div class="note">
+                    <strong>Atenção:</strong> Ao colar a senha/token, nada aparecerá na tela por segurança. Apenas cole e pressione Enter. Geralmente, você só precisa fazer isso na primeira vez!
+                </div>
+            </li>
+        </ol>
+
+        <h3>Pronto!</h3>
+        <p>Seus arquivos foram enviados com sucesso! Atualize a página do seu repositório no GitHub e você verá todo o seu projeto lá.</p>
+    </div>
+
+</body>
+</html>
